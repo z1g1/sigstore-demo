@@ -1,0 +1,14 @@
+jobs:
+  test_cosign_action:
+    runs-on: ubuntu-latest
+
+    permissions: {}
+
+    name: Install Cosign and test presence in path
+    steps:
+      - name: Install Cosign
+        uses: sigstore/cosign-installer@main
+        with:
+          cosign-release: 'v2.0.0-rc.0'
+      - name: Check install!
+        run: cosign version
