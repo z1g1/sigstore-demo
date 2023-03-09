@@ -1,3 +1,8 @@
+on:
+    workflow_dispatch:
+    push:
+        branches:
+            -main
 jobs:
   test_cosign_action:
     runs-on: ubuntu-latest
