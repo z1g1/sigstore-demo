@@ -24,4 +24,4 @@ jobs:
         with:
           cosign-release: 'v2.0.0-rc.0'
       - name: Sign with Github Identity 
-        run: cosign sign --yes --oidc-client-secret-file ./token ./README.md
+        run: cosign sign-blob --yes README.md
