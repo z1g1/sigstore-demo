@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
 
     permissions: 
-        content: read
+        contents: read
         id-token: write
 
     name: Install Cosign and test presence in path
