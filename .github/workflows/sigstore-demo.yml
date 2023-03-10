@@ -1,8 +1,6 @@
 on:
     workflow_dispatch:
-    push:
-        branches:
-            -main
+
 jobs:
   sign_local_object_keylessly_with_cosign:
     runs-on: ubuntu-latest
@@ -11,7 +9,7 @@ jobs:
         contents: write 
         id-token: write
 
-    name: Install Cosign and test presence in path
+    name: Install Cosign 
     steps:
       - name: Checkout 
         uses: actions/checkout@v3
@@ -25,6 +23,4 @@ jobs:
         uses: ncipollo/release-action@v1
           artifacts: "README.md,verification.json"
           tag: $GITHUB_JOB
-          body: "verify the signature of the README.md file using ```cosign verify-blob --bundle verification.json https://$GITHUB_WORKFLOW_REF --certificate-oidc-issuer https://token.actions.githubusercontent.com README.md```. "
-
-
+          body: "verify the signature of the README.md file using ```cosign verify-blob --bundle verification.json https://$GITHUB_WORKFLOW_REF --certificate-oidc-issuer https://token.actions.githubusercontent.com README.md```. " 
