@@ -4,16 +4,22 @@ on:
         branches:
             -main
 jobs:
-  test_cosign_action:
+  sign_local_object_keylessly_with_cosign:
     runs-on: ubuntu-latest
 
-    permissions: {}
+    permissions: 
+        content: read
+        id-token: write
 
     name: Install Cosign and test presence in path
     steps:
+      - name: Checkout 
+        uses: actions/checkout@v3
+      - name: Create OIDC File
+        run: echo GITHUB_TOKEN > $GITHUB_WORKSPACE/token
       - name: Install Cosign
         uses: sigstore/cosign-installer@main
         with:
           cosign-release: 'v2.0.0-rc.0'
-      - name: Check install!
-        run: cosign version
+      - name: Sign with Github Identity 
+        run: cosign sign --yes --oidc-client-secret-file $GITHUB_WORKSPACE/token $GITHUB_WORKSPACE/sigstore-demo/README.md
