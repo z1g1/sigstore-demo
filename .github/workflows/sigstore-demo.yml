@@ -25,6 +25,7 @@ jobs:
         uses: ncipollo/release-action@v1
         with:
           artifacts: "README.md,verification.json"
+          tag: GITHUB_JOB
           body: "verify the signature of the README.md file using ```cosign verify-blob --bundle verification.json README.md```. "
 
 
