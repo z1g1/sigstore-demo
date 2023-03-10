@@ -1,0 +1,25 @@
+on:
+    workflow_dispatch:
+    push:
+        branches:
+            -main
+jobs:
+  sign_local_object_keylessly_with_cosign:
+    runs-on: ubuntu-latest
+
+    permissions: 
+        contents: read
+        id-token: write
+
+    name: Install Cosign and test presence in path
+    steps:
+      - name: Checkout 
+        uses: actions/checkout@v3
+      - name: Print Working Directory
+        run: pwd 
+      - name: list directory 
+        run: ls -l 
+      - name: Github Workspace no braces
+        run: echo $GITHUB_WORKSPACE 
+      - name: Github Workspace braces
+        run: echo ${{ GITHUB_WORKSPACE }}
