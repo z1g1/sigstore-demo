@@ -20,4 +20,11 @@ jobs:
         with:
           cosign-release: 'v2.0.0-rc.0'
       - name: Sign with Github Identity 
-        run: cosign sign-blob --yes README.md
+        run: cosign sign-blob --yes --bundle verification.json README.md
+      - name: Create a Release for Verification 
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: "README.md,verification.json"
+          body: "verify the signature of the README.md file using ```cosign verify-blob --bundle verification.json README.md```
+
+
