@@ -19,9 +19,12 @@ jobs:
           cosign-release: 'v2.0.0-rc.0'
       - name: Sign with Github Identity 
         run: cosign sign-blob --yes --bundle verification.json README.md
+      - name: Get Current Time  
+        id: date 
+        run: echo "::set-output name=date::$(date +'%H-%M-%S')" 
       - name: Create a Release for Verification 
         uses: ncipollo/release-action@v1
         with:
           artifacts: "README.md,verification.json"
-          tag: ${{ github.job}}
+          tag: release-${{ steps.date.outputs.date }}
           body: "verify the signature of the README.md file using ```cosign verify-blob --bundle verification.json --certificate-identity https://github.com/${{ github.workflow_ref}} --certificate-oidc-issuer https://token.actions.githubusercontent.com README.md```. " 
